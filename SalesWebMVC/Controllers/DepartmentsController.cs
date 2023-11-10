@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMVC.Data;
 using SalesWebMVC.Models;
+using SalesWebMVC.Services;
 
 namespace SalesWebMVC.Controllers
 {
@@ -24,7 +20,7 @@ namespace SalesWebMVC.Controllers
         {
               return _context.Department != null ? 
                           View(await _context.Department.ToListAsync()) :
-                          Problem("Entity set 'SalesWebMVCContext.Department'  is null.");
+                          Problem("Entity set 'SalesWebMVCContext.Department' is null.");
         }
 
         // GET: Departments/Details/5
@@ -104,7 +100,7 @@ namespace SalesWebMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.Id))
+                    if (!DepartmentExists(department.Id.Value))
                     {
                         return NotFound();
                     }
